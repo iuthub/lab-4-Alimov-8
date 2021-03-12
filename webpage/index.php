@@ -1,3 +1,8 @@
+<?php
+    $REQUEST = array();
+    $musicSizeExt = "b";
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,10 +25,19 @@
         <?php
         $musicFiles = glob("songs/*.mp3");
         foreach ($musicFiles as $music) {
-        $musicName = basename($music);
-        $musicSize = filesize($music)
+            $musicName = basename($music);
+            $musicSize = filesize($music);
+
+            if ($musicSize > 1024 && $musicSize < 1048575){
+                $musicSize = $musicSize / 1024;
+                $musicSizeExt = "kb";
+            }
+            if ($musicSize > 1048575){
+                $musicSize = (int) $musicSize / 1048575;
+                $musicSizeExt = "mb";
+            }
         ?>
-        <li class="mp3item"> <a href="<?= $music ?>"><?= $musicName ?> </a> <?= " (".$musicSize." b)" ?> </li>
+        <li class="mp3item"> <a href="<?= $music ?>"><?= $musicName ?> </a> <?= " (".(int)$musicSize ." ". $musicSizeExt." )" ?> </li>
         <?php } ?>
 
 
@@ -31,7 +45,6 @@
         $playlists = glob("songs/*.txt");
         foreach ($playlists as $playlist) {
             $playlistName = basename($playlist);
-            $playlistSize = filesize($playlist)
             ?>
             <li class="playlistitem"> <a href="<?= $playlist ?>"><?= $playlistName ?> </a> </li>
         <?php } ?>
