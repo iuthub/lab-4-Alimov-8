@@ -1,8 +1,3 @@
-<?php
-    $REQUEST = array();
-    $musicSizeExt = "b";
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,8 +16,8 @@
 
 <div id="listarea">
     <ul id="musiclist">
-
         <?php
+        $musicSizeExt = "b";
         $musicFiles = glob("songs/*.mp3");
         foreach ($musicFiles as $music) {
             $musicName = basename($music);
@@ -46,7 +41,7 @@
         foreach ($playlists as $playlist) {
             $playlistName = basename($playlist);
             ?>
-            <li class="playlistitem"> <a href="<?= $playlist ?>"><?= $playlistName ?> </a> </li>
+            <li class="playlistitem"> <a href="./playlist.php?data=<?php echo $playlist ?>"><?= $playlistName ?> </a> </li>
         <?php } ?>
     </ul>
 </div>
